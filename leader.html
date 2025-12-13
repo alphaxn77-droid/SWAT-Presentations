@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>ترشيح الليدرات</title>
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<div class="card">
+<h2>استمارة ترشيح الليدرات</h2>
+
+<label>الاسم</label><input id="name">
+<label>الرتبة</label><input id="rank">
+<label>خبراته</label><textarea id="experience"></textarea>
+
+<label>AA</label><textarea id="AA"></textarea>
+<label>BH</label><textarea id="BH"></textarea>
+<label>CD</label><textarea id="CD"></textarea>
+<label>PG</label><textarea id="PG"></textarea>
+<label>RK</label><textarea id="RK"></textarea>
+
+<label>DM</label><textarea id="DM"></textarea>
+<label>GR</label><textarea id="GR"></textarea>
+<label>LTA</label><textarea id="LTA"></textarea>
+<label>MG</label><textarea id="MG"></textarea>
+<label>NG</label><textarea id="NG"></textarea>
+
+<label>SA</label><textarea id="SA"></textarea>
+<label>TK</label><textarea id="TK"></textarea>
+<label>UH</label><textarea id="UH"></textarea>
+<label>VDM</label><textarea id="VDM"></textarea>
+<label>WA</label><textarea id="WA"></textarea>
+<label>NK</label><textarea id="NK"></textarea>
+<label>DOS</label><textarea id="DOS"></textarea>
+<label>PK</label><textarea id="PK"></textarea>
+
+<label>/hq</label><textarea id="hq"></textarea>
+<label>/issuebadge</label><textarea id="issuebadge"></textarea>
+<label>/fl</label><textarea id="fl"></textarea>
+<label>/gov</label><textarea id="gov"></textarea>
+
+<label>كود5</label><textarea id="code5"></textarea>
+<label>كود0</label><textarea id="code0"></textarea>
+<label>كود8</label><textarea id="code8"></textarea>
+<label>كود7</label><textarea id="code7"></textarea>
+<label>كود10</label><textarea id="code10"></textarea>
+<label>كود6</label><textarea id="code6"></textarea>
+<label>كود4</label><textarea id="code4"></textarea>
+<label>كود1</label><textarea id="code1"></textarea>
+<label>كود11</label><textarea id="code11"></textarea>
+
+<label>10-1</label><textarea id="t10_1"></textarea>
+<label>10-2</label><textarea id="t10_2"></textarea>
+<label>10-3</label><textarea id="t10_3"></textarea>
+<label>10-4</label><textarea id="t10_4"></textarea>
+<label>10-5</label><textarea id="t10_5"></textarea>
+
+<label>لو في مشكلة بين عضوين وش تسوي؟</label>
+<textarea id="members_problem"></textarea>
+
+<label>لو في ليدر استعمل سلطته غلط وش تسوي؟</label>
+<textarea id="leader_abuse"></textarea>
+
+<button type="button" id="submitLeader">إرسال التقديم</button>
+</div>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
+
+document.getElementById("submitLeader").addEventListener("click", async () => {
+    const get = id => document.getElementById(id).value.trim();
+
+    const data = {
+        type: "ليدر",
+        name: get("name"),
+        rank: get("rank"),
+        experience: get("experience"),
+
+        AA:get("AA"), BH:get("BH"), CD:get("CD"), PG:get("PG"), RK:get("RK"),
+        DM:get("DM"), GR:get("GR"), LTA:get("LTA"), MG:get("MG"), NG:get("NG"),
+        SA:get("SA"), TK:get("TK"), UH:get("UH"), VDM:get("VDM"), WA:get("WA"),
+        NK:get("NK"), DOS:get("DOS"), PK:get("PK"),
+
+        hq:get("hq"), issuebadge:get("issuebadge"), fl:get("fl"), gov:get("gov"),
+
+        code5:get("code5"), code0:get("code0"), code8:get("code8"),
+        code7:get("code7"), code10:get("code10"), code6:get("code6"),
+        code4:get("code4"), code1:get("code1"), code11:get("code11"),
+
+        t10_1:get("t10_1"), t10_2:get("t10_2"), t10_3:get("t10_3"),
+        t10_4:get("t10_4"), t10_5:get("t10_5"),
+
+        members_problem:get("members_problem"),
+        leader_abuse:get("leader_abuse"),
+
+        time:new Date().toLocaleString()
+    };
+
+    await addDoc(collection(db, "submissions"), data);
+    alert("✅ تم إرسال التقديم");
+    window.location.href = "index.html";
+});
+</script>
+</body>
+</html>
